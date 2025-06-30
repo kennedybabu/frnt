@@ -1,6 +1,6 @@
 <div class="px-6">
     @for (product of products; track $index) {
-        <div>
+        <div class="flex items-center justify-between my-1">
             <p>{{ product.name }}</p>
             <img src="{{ product.imageUrl }}" class="h-[30px]">
         </div>

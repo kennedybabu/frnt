@@ -1,0 +1,12 @@
+   ::ng-deep .custom-menu .p-menuitem {
+      margin-bottom: 8px; /* Gap between items */
+    }
+    
+    ::ng-deep .custom-menu .p-menuitem:last-child {
+      margin-bottom: 0; /* Remove gap from last item */
+    }
+    
+    /* Alternative: Add padding instead of margin */
+    ::ng-deep .custom-menu .p-menuitem-link {
+      padding: 12px 16px !important; /* Increase padding for more space */
+    }
