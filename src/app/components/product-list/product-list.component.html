@@ -1,1 +1,8 @@
-<p>product-list works!</p>
+<div class="px-6">
+    @for (product of products; track $index) {
+        <div>
+            <p>{{ product.name }}</p>
+            <img src="{{ product.imageUrl }}" class="h-[30px]">
+        </div>
+    }
+</div>
