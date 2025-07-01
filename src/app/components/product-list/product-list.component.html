@@ -1,8 +1,15 @@
-<div class="px-6">
-    @for (product of products; track $index) {
-        <div class="flex items-center justify-between my-1">
-            <p>{{ product.name }}</p>
-            <img src="{{ product.imageUrl }}" class="h-[30px]">
-        </div>
-    }
+<div class="w-full py-[30px]">
+    <div>
+        <h3 class="font-bold text-xl">Featured Products</h3>
+    </div>
+    <div class="w-full gap-2 grid grid-cols-1 md:grid-cols-2 md:grid-cols-4 pt-[30px]">
+        @for (product of products; track $index) {
+            <!-- <div class="flex items-center justify-between my-1">
+                <p>{{ product.name }}</p>
+                <img src="{{ product.imageUrl }}" class="h-[30px]">
+            </div> -->
+            <app-product-card [product]="product"></app-product-card>
+    
+        }
+    </div>
 </div>
