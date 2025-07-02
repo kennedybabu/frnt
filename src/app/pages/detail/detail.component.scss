@@ -1,0 +1,44 @@
+p-tablist {
+  outline: none !important;
+}
+
+p-tablits:focus,
+p-tablist:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .p-tablist {
+  outline: none !important;
+  border: none !important;
+}
+
+::ng-deep .p-tablist:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .p-tablist .p-tab {
+  border: 1px solid transparent !important;
+}
+
+.custom-tab {
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.custom-tab:hover {
+  background-color: #f3f4f6;
+}
+
+.custom-tab[aria-selected="true"] {
+  border-bottom: 2px solid #3b82f6;
+  font-weight: 500;
+}
+
+.p-tablist-tab-list {
+    border-width: 0 !important;
+}

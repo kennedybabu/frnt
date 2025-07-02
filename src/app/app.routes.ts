@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { DetailComponent } from './pages/detail/detail.component';
 
 export const routes: Routes = [
+     {
+        path: 'detail', component: DetailComponent
+    },
     {
         path: 'category/:id', component: ProductListComponent
     },
