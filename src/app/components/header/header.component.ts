@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem, PrimeIcons } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar'; // Import the module
 
@@ -12,6 +13,7 @@ import { MenubarModule } from 'primeng/menubar'; // Import the module
 })
 export class HeaderComponent implements OnInit {
   items!: MenuItem[]
+  router = inject(Router);
 
   ngOnInit(): void {
     this.items = [
@@ -24,6 +26,11 @@ export class HeaderComponent implements OnInit {
         icon: PrimeIcons.USER
       }
     ]
+  }
+
+  search(value: String) {
+    console.log(value)
+    this.router.navigateByUrl(`/search/${value}`);
   }
 
 

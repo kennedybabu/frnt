@@ -3,10 +3,11 @@ import { Product } from '../../common/product';
 import { ProductService } from '../../services/product.service';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-list',
-  imports: [ProductCardComponent],
+  imports: [ProductCardComponent, CommonModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
@@ -17,6 +18,7 @@ export class ProductListComponent implements OnInit {
 
   products!:  Product[];
   categoryId!: number
+  searchMode!: boolean
 
 
 
@@ -28,6 +30,31 @@ export class ProductListComponent implements OnInit {
   }
 
   listProducts() {
+    this.searchMode = this.route.snapshot.paramMap.has("keyword");
+
+    if(this.searchMode) {
+      this.handleSearchProducts()
+    } else {
+      this.handleListProducts();
+
+    }
+  }
+
+  handleSearchProducts() {
+    const keyword = this.route.snapshot.paramMap.get("keyword");
+
+    // search for products using the keyword 
+    if(keyword != null) {
+      this.productService.searchProducts(keyword).subscribe(
+        data => {
+          this.products = data;
+        }
+      )
+    }
+  }
+
+
+  handleListProducts() {
     // check if "id" paramater is available
 
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has("id");

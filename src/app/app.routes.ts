@@ -4,7 +4,10 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { DetailComponent } from './pages/detail/detail.component';
 
 export const routes: Routes = [
-     {
+    {
+        path:'search/:keyword', component: ProductListComponent
+    },
+    {
         path: 'detail', component: DetailComponent
     },
     {
@@ -19,7 +22,7 @@ export const routes: Routes = [
     {
         path: '', redirectTo:'/products', pathMatch: 'full'
     },
-      {
+    {
         path:'**',redirectTo:'/products', pathMatch: 'full'
     },
 ];
