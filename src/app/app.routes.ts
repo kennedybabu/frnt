@@ -8,7 +8,7 @@ export const routes: Routes = [
         path:'search/:keyword', component: ProductListComponent
     },
     {
-        path: 'detail', component: DetailComponent
+        path: 'products/:id', component: DetailComponent
     },
     {
         path: 'category/:id', component: ProductListComponent

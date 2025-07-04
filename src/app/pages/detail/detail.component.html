@@ -1,10 +1,10 @@
 <div class="w-full grid grid-cols-1 md:grid-cols-2 p-2 lg:px-[100px]">
     <div class="border border-gray-100 max-w-[441px] h-[441px]">
-
+        <img src="{{ product.imageUrl }}" alt="product_image" class="w-full object-fit">
     </div>
     <div class="p-2">
-        <h2 class="font-bold tex-2xl lg:text-[36px] md:text-[30px] mb-[22px]">Undefined Tool IRadix DPs3000SY 2700 Watts</h2>
-        <p class="max-w-[70%]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare, mi in ornare elementum, libero nibh lacinia urna, quis convallis lorem erat at purus. Maecenas eu varius nisi.</p>
+        <h2 class="font-bold tex-2xl lg:text-[36px] md:text-[30px] mb-[22px]">{{ product.name }}</h2>
+        <p class="max-w-[70%]">{{ product.description }}</p>
         <hr class="text-gray-200 my-2">
         <div class="w-full flex items-center">
             <div>
