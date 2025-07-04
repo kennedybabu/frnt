@@ -19,3 +19,6 @@
         No products found
     </div>
 </div>
+<div class="card flex justify-center">
+    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="thePageSize" [totalRecords]="totalElements" [rowsPerPageOptions]="[10, 20, 30]" />
+</div>

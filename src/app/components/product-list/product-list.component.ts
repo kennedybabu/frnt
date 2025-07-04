@@ -4,10 +4,11 @@ import { ProductService } from '../../services/product.service';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 
 @Component({
   selector: 'app-product-list',
-  imports: [ProductCardComponent, CommonModule],
+  imports: [ProductCardComponent, CommonModule, PaginatorModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
@@ -17,8 +18,9 @@ export class ProductListComponent implements OnInit {
   route = inject(ActivatedRoute);
 
   products!:  Product[];
-  categoryId!: number
+  categoryId: number = 1
   searchMode!: boolean
+  previousCategoryId: number = 1;
 
 
 
@@ -27,6 +29,20 @@ export class ProductListComponent implements OnInit {
       this.listProducts();
     })
 
+  }
+
+  thePageNumber: number = 0;
+  thePageSize: number = 20;
+  totalElements: number = 0
+  first: number = 0;
+
+  onPageChange(event: PaginatorState) {
+      console.log(event)
+      this.thePageNumber = event.page ?? 0;
+      this.thePageSize = event.rows ?? 20;
+      this.first = event.first ?? 0;
+
+      this.handleListProducts();
   }
 
   listProducts() {
@@ -67,11 +83,31 @@ export class ProductListComponent implements OnInit {
     }
 
 
-    this.productService.getProductList(this.categoryId).subscribe(
-      data => {
-        this.products = data;
-      }
+    // check if we have a diff category than prev
+    // if we have a diff catefory id than prev, then we set thePageNumber back to 1
+
+    if(this.previousCategoryId != this.categoryId) {
+      this.thePageNumber = 0;
+      this.first = 0;
+    }
+
+    this.previousCategoryId = this.categoryId;
+
+    this.productService.getProductListPaginate(this.thePageNumber, this.thePageSize, this.categoryId).subscribe(
+      this.processResult()
     )
+    
+  }
+
+
+  processResult() {
+    return (data: { _embedded: { products: Product[]; }; page: { number: number; size: number; totalElements: number; }; }) => {
+      this.products = data._embedded.products;
+      this.thePageNumber = data.page.number;
+      this.thePageSize = data.page.size;
+      this.totalElements = data.page.totalElements;
+      this.first = data.page.number * data.page.size
+    }
   }
 
 }

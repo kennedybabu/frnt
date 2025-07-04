@@ -14,12 +14,12 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
     providePrimeNG(
-    //   {
-    //   theme: {
-    //             preset: Aura
-    //         }
+      {
+      theme: {
+                preset: Aura
+            }
 
-    // }
+    }
   )
   ]
 };
