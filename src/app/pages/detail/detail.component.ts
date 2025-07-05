@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { Product } from '../../common/product';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute } from '@angular/router';
+import { CartItem } from '../../common/cart-item';
+import { CartService } from '../../services/cart.service';
 
 
 @Component({
@@ -13,6 +15,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './detail.component.scss'
 })
 export class DetailComponent implements OnInit {
+
+cartService = inject(CartService)
+  
+addToCart(product: Product) {
+  const cartItem = new CartItem(product)
+  this.cartService.addToCart(cartItem);
+}
 
   product: Product = new Product();
   productService = inject(ProductService);
