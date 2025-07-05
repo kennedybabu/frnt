@@ -1,13 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, PrimeIcons } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar'; // Import the module
+import { MenubarModule } from 'primeng/menubar';
+import { CartStatusComponent } from "../cart-status/cart-status.component"; // Import the module
 
 
 
 @Component({
   selector: 'app-header',
-  imports: [MenubarModule],
+  imports: [MenubarModule, CartStatusComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

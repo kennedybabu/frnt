@@ -1,11 +1,14 @@
-<a routerLink="/products/{{ product().id }}">
+<!-- <a routerLink="/products/{{ product().id }}"> -->
     <div class="h-[370px] w-[265px] border border-gray-200 hover:shadow-sm transition mx-auto">
         <div class="w-full items-center flex h-[70%]">
             <img src="{{ product().imageUrl }}" class="w-full h-full mx-auto">
         </div>
         <div class="w-full p-2">
-            <p>{{ product().name }}</p>
+            <p routerLink="/products/{{ product().id }}" class="cursor-pointer">{{ product().name }}</p>
             <h3 class="font-bold">Ksh{{ product().unitPrice }}</h3>
         </div>
+        <div>
+            <button (click)="addToCart(product())" class="bg-[#cc3333] px-[15px] py-[6px] cursor-pointer mx-2">Add to cart</button>
+        </div>
     </div>
-</a>
+<!-- </a> -->

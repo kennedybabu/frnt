@@ -1,5 +1,5 @@
 <div class="w-full">
-    <div class="hidden md:flex w-full h-[100px] flex items-center justify-between px-2 lg:px-[100px]">
+    <div class="hidden md:flex w-full h-[100px] flex items-center justify-between">
         <h1 class="text-2xl font-bold">Outdoor</h1>
          <div class="flex items-center">
             <input #input (keyup.enter)="search(input.value)" class="border p-2" placeholder="Search" />
@@ -18,7 +18,8 @@
             <!-- <p-menubar class="gap-2 custom-menu" [model]="items"></p-menubar> -->
         </div>
         <div class="flex items-center gap-5">
-            <i class="pi pi-cart-plus text-xl cursor-pointer"></i>
+            <!-- <i class="pi pi-cart-plus text-xl cursor-pointer"></i> -->
+             <app-cart-status></app-cart-status>
             <i class="pi pi-user text-xl cursor-pointer"></i>
         </div>
     </div>
