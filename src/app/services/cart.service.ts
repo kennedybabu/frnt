@@ -10,6 +10,8 @@ export class CartService {
   cartItems: CartItem[] = []
   totalPrice: Subject<number> =  new Subject<number>();
   totalQuantity: Subject<number> = new Subject<number>();
+  items: Subject<CartItem []> = new Subject<CartItem[]>();
+
 
   constructor() { }
 
@@ -53,7 +55,8 @@ export class CartService {
     // publish new values
     this.totalPrice.next(totalPriceValue)
     this.totalQuantity.next(quantityValue)
+    this.items.next(this.cartItems)
 
-    console.log(totalPriceValue, quantityValue)
+    console.log(totalPriceValue, quantityValue, this.cartItems)
   }
 }

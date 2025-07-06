@@ -13,8 +13,12 @@ import { CartStatusComponent } from "../cart-status/cart-status.component"; // I
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
+  
   items!: MenuItem[]
   router = inject(Router);
+  navigate() {
+    this.router.navigateByUrl("/products")
+  }
 
   ngOnInit(): void {
     this.items = [

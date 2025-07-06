@@ -1,9 +1,9 @@
 <div class="w-full">
     <div class="hidden md:flex w-full h-[100px] flex items-center justify-between">
-        <h1 class="text-2xl font-bold">Outdoor</h1>
+        <h1 (click)="navigate()" class="text-2xl font-bold">Outdoor</h1>
          <div class="flex items-center">
             <input #input (keyup.enter)="search(input.value)" class="border p-2" placeholder="Search" />
-            <button (click)="search(input.value)">Search</button>
+            <button (click)="search(input.value)" class="bg-[#cc3333] px-[32px] py-[10px] ml-2">Search</button>
         </div>
         <div>
             <p>customer service</p>
