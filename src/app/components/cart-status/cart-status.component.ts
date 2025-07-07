@@ -12,7 +12,18 @@ import { CommonModule } from '@angular/common';
   templateUrl: './cart-status.component.html',
   styleUrl: './cart-status.component.scss'
 })
+
+
 export class CartStatusComponent implements OnInit {
+
+decrementQuantity(item: CartItem) {
+  this.cartService.decrementQuantity(item);
+}
+
+
+incrementQuantity(item: CartItem) {
+  this.cartService.addToCart(item);
+}
 
   totalPrice: number = 0.00
   totalQuantity: number = 0.00
@@ -41,5 +52,9 @@ export class CartStatusComponent implements OnInit {
     this.cartService.items.subscribe(
       data => this.cartItems = data
     )
+  }
+
+  removeItem(item: CartItem) {
+    this.cartService.removeItem(item);
   }
 }

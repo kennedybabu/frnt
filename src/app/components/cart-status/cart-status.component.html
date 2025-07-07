@@ -11,22 +11,23 @@
                 <img src="{{ item.imageUrl }}" alt="">
             </div>
             <div class="p-2">
-                <h3 class="font-bold text-xl">{{ item.name }}</h3>
+                <h5 class="font-bold">{{ item.name }}</h5>
                 <p class="font-bold">{{ item.unitPrice }}</p>
                 
                 <div class="w-full flex items-center justify-between">
-                  <div class="w-[60px] h-[60px] cursor-pointer flex items-center justify-center rounded-sm bg-[#cc3333]">
-                    <i class="pi -pi-plus"></i>
+                  <div (click)="incrementQuantity(item)" class="w-[30px] h-[30px] cursor-pointer flex items-center justify-center rounded-sm bg-[#cc3333]">
+                    <i class="pi pi-plus"></i>
                   </div>
 
-                  <div>
-                      {{ item.quantity }}
+                  <div class="w-[35px] flex items-center justify-center">
+                      <span class="font-bold">{{ item.quantity }}</span>
                   </div>
 
-                  <div class="w-[60px] cursor-pointer flex items-center justify-center rounded-sm bg-[#cc3333]">
-                    <i class="pi -pi-minus"></i>
+                  <div (click)="decrementQuantity(item)" class="w-[30px] h-[30px] cursor-pointer flex items-center justify-center rounded-sm bg-[#cc3333]">
+                    <i class="pi pi-minus"></i>
                   </div>
                 </div>
+                <button (click)="removeItem(item)" class="bg-[#cc3333]">Remove</button>
             </div>
         </div>
       }   
