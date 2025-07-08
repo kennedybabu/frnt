@@ -136,15 +136,17 @@
                     <input type="text" formControlName="securityCode" pInputText placeholder="Security Code" />
                 </p-inputgroup>
 
-                <p-floatlabel>
-                    <p-datepicker inputId="over_label" showIcon iconDisplay="input" />
-                    <label for="over_label">Expiration Date</label>
-                </p-floatlabel>
-            
+                <p-inputgroup>
+                    <p-select (onChange)="handleMonthsAndYears()" [options]="creditCardYears" formControlName="expirationYear" [checkmark]="true" [showClear]="true" placeholder="Expiration Year" class="w-full md:w-56" />
+                </p-inputgroup>  
+
+                 <p-inputgroup>
+                    <p-select [options]="creditCadrMonths" formControlName="expirationMonth" [checkmark]="true"  [showClear]="true" placeholder="Expiration Month" class="w-full md:w-56" />
+                </p-inputgroup>   
 
             </div>
         </div>
-        
+
         <div class="my-5">
             <h3 class="font-bold">Review Your Order</h3>
             <p>Total Quantity: {{ totalQuantity }}</p>

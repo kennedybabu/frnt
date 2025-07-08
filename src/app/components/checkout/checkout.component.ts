@@ -8,6 +8,7 @@ import { Select } from 'primeng/select';
 import { Checkbox, CheckboxChangeEvent } from 'primeng/checkbox';
 import { DatePicker } from 'primeng/datepicker';
 import { FloatLabel } from 'primeng/floatlabel';
+import { ShopFormService } from '../../services/shop-form.service';
 
 
 interface City {
@@ -53,11 +54,15 @@ value1: Date | undefined;
 
 
   fb = inject(FormBuilder);
+  formService = inject(ShopFormService)
 
   checkoutFormGroup!: FormGroup
 
   totalPrice: number = 0
   totalQuantity: number = 0    
+  creditCardYears: number[]=[]
+  creditCadrMonths: number [] = []
+
 
 
   ngOnInit(): void {
@@ -107,8 +112,29 @@ value1: Date | undefined;
         cardNumber: [''],
         securityCode: [''],
         expirationMonth: [''],
+        expirationYear: [''],
+
       })
     })
+
+    // populate credit card months
+
+    const startMonth: number = new Date().getMonth() + 1;
+
+    this.formService.getCreditCardMonths(startMonth).subscribe(
+      data => {
+        this.creditCadrMonths = data;
+      }
+    )
+
+    // populate credit card years
+    const startYear: number = new Date().getFullYear();
+
+    this.formService.getCreditCardYears().subscribe(
+      data => {
+        this.creditCardYears = data;
+      }
+    )
   }
 
 
@@ -123,5 +149,26 @@ value1: Date | undefined;
     } else {
       this.checkoutFormGroup.controls['billingAddress'].reset()
     }
+  }
+
+  handleMonthsAndYears() {
+    const creditCardFormGroup = this.checkoutFormGroup.get('creditCard');
+
+    const currentYear: number = new Date().getFullYear();
+    const selectedYear = Number(creditCardFormGroup?.value.expirationYear)
+
+    let startMonth: number
+
+    if(currentYear === selectedYear) {
+      startMonth = new Date().getMonth() + 1;
+    } else {
+      startMonth = 1
+    }
+
+    this.formService.getCreditCardMonths(startMonth).subscribe(
+      data => {
+        this.creditCadrMonths = data; 
+      }
+    )
   }
 }
