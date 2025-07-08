@@ -1,0 +1,161 @@
+<div class="main-content">
+    
+    <!-- customer form group -->
+     <!-- <div formGroupName="customer" class="form-area">
+        <h3>Customer</h3>
+        
+        <div class="w-full">
+            <div>
+                <label>First Name</label>
+            </div>
+            <div>
+                <input type="text" formControlName="firstName">
+            </div>
+        </div>
+
+        <div class="w-full">
+            <div>
+                <label>Last Name</label>
+            </div>
+            <div>
+                <input type="text" formControlName="lastName">
+            </div>
+        </div>
+
+        <div class="w-full">
+            <div>
+                <label>Email</label>
+            </div>
+            <div>
+                <input type="email" formControlName="email">
+            </div>
+        </div>
+     </div> -->
+
+    <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()" class="p-2">
+        <div>
+            <h3 class="font-bold my-5">Customer</h3>
+            <div formGroupName="customer" class="card flex flex-col md:flex-row gap-4">
+                <p-inputgroup>
+                    <input type="text" formControlName="firstName" pInputText placeholder="First Name" />
+                </p-inputgroup>
+
+                <p-inputgroup>
+                    <input type="text" formControlName="lastName" pInputText placeholder="Last Name" />
+                </p-inputgroup>
+
+                <p-inputgroup>
+                    <input type="email" formControlName="email" pInputText placeholder="Email" />
+                </p-inputgroup>
+            </div>
+        </div>
+
+        <!-- shipping address -->
+
+        <div>
+            <h3 class="font-bold my-5">Shipping Address</h3>
+            <div formGroupName="shippingAddress" class="card flex flex-col md:flex-row gap-4">
+                <p-inputgroup>
+                    <p-select [options]="cities" formControlName="country" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Country" class="w-full md:w-56" />
+                </p-inputgroup>
+
+                <p-inputgroup>
+                    <p-select [options]="cities" formControlName="city" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="City" class="w-full md:w-56" />
+                </p-inputgroup>
+
+                <p-inputgroup>
+                    <input type="text" formControlName="state" pInputText placeholder="State" />
+                </p-inputgroup>
+
+                <p-inputgroup>
+                    <input type="text" formControlName="street" pInputText placeholder="Street" />
+                </p-inputgroup>
+
+
+                <p-inputgroup>
+                    <input type="text" formControlName="zipCode" pInputText placeholder="Zip Code" />
+                </p-inputgroup>
+
+            </div>
+        </div>
+
+        <!-- Billing address -->
+         <div class="flex items-center my-2">
+            <p-checkbox inputId="ingredient1" name="pizza"value="Cheese" (onChange)="copyShippingToBillingAddress($event)" />
+            <label for="ingredient1" class="ml-2"> Billing Address same as Shipping Address </label>
+        </div>
+
+        <div>
+            <h3 class="font-bold my-5">Billing Address</h3>
+            <div formGroupName="billingAddress" class="card flex flex-col md:flex-row gap-4">
+                <p-inputgroup>
+                    <p-select [options]="cities" formControlName="country" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Country" class="w-full md:w-56" />
+                </p-inputgroup>
+
+                <p-inputgroup>
+                    <p-select [options]="cities" formControlName="city" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="City" class="w-full md:w-56" />
+                </p-inputgroup>
+
+                <p-inputgroup>
+                    <input type="text" formControlName="state" pInputText placeholder="State" />
+                </p-inputgroup>
+
+                <p-inputgroup>
+                    <input type="text" formControlName="street" pInputText placeholder="Street" />
+                </p-inputgroup>
+
+
+                <p-inputgroup>
+                    <input type="text" formControlName="zipCode" pInputText placeholder="Zip Code" />
+                </p-inputgroup>
+
+            </div>
+        </div>
+
+        <!-- credit card info -->
+        <div>
+            <h3 class="font-bold my-5">Billing Address</h3>
+            <div formGroupName="creditCard" class="card flex flex-col md:flex-row gap-4">
+                <p-inputgroup>
+                    <p-select [options]="cardType" formControlName="cardType" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Country" class="w-full md:w-56" />
+                </p-inputgroup>
+<!-- 
+                <p-inputgroup>
+                    <p-select [options]="cities" formControlName="city" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="City" class="w-full md:w-56" />
+                </p-inputgroup> -->
+
+                <p-inputgroup>
+                    <input type="text" formControlName="nameOnCard" pInputText placeholder="Name on Card" />
+                </p-inputgroup>
+
+                 <p-inputgroup>
+                    <input type="text" formControlName="cardNumber" pInputText placeholder="Name on Card" />
+                </p-inputgroup>
+
+                <p-inputgroup>
+                    <input type="text" formControlName="securityCode" pInputText placeholder="Security Code" />
+                </p-inputgroup>
+
+                <p-floatlabel>
+                    <p-datepicker inputId="over_label" showIcon iconDisplay="input" />
+                    <label for="over_label">Expiration Date</label>
+                </p-floatlabel>
+            
+
+            </div>
+        </div>
+        
+        <div class="my-5">
+            <h3 class="font-bold">Review Your Order</h3>
+            <p>Total Quantity: {{ totalQuantity }}</p>
+            <p>Shipping is FREE</p>
+            <p>Total Price: {{ totalPrice }}</p>
+        </div>
+
+        <div class="p-2">
+           <button type="submit" class="bg-[#cc3333] px-8 py-2">Purchase</button>
+        </div>
+    </form> 
+
+
+</div>

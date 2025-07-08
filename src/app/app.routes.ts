@@ -2,8 +2,12 @@ import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { DetailComponent } from './pages/detail/detail.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 export const routes: Routes = [
+     {
+        path:'checkout', component: CheckoutComponent
+    },
     {
         path:'search/:keyword', component: ProductListComponent
     },

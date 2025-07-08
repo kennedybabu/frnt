@@ -4,6 +4,7 @@ import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
 import { CartItem } from '../../common/cart-item';
 import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 
 
 @Component({
@@ -28,6 +29,7 @@ incrementQuantity(item: CartItem) {
   totalPrice: number = 0.00
   totalQuantity: number = 0.00
   cartService = inject(CartService)
+  router = inject(Router)
   cartItems: CartItem[] = []
   visible: boolean = false;
 
@@ -56,5 +58,9 @@ incrementQuantity(item: CartItem) {
 
   removeItem(item: CartItem) {
     this.cartService.removeItem(item);
+  }
+
+  checkout() {
+    this.router.navigateByUrl("/checkout")
   }
 }

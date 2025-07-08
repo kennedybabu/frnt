@@ -27,7 +27,7 @@
                     <i class="pi pi-minus"></i>
                   </div>
                 </div>
-                <button (click)="removeItem(item)" class="bg-[#cc3333]">Remove</button>
+                <button (click)="removeItem(item)" class="bg-[#cc3333] my-2 py-2 px-6">Remove</button>
             </div>
         </div>
       }   
@@ -40,6 +40,9 @@
 
       <div class="w-full p-2">
         <h2 class="text-xl font-bold">{{ totalPrice | currency: 'Ksh' }} </h2>
+      </div>
+      <div>
+        <button class="px-6 py-2 bg-[#cc3333]" (click)="checkout()">checkout</button>
       </div>
     </p-drawer>
 </div>
