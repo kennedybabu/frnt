@@ -35,18 +35,56 @@
     <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()" class="p-2">
         <div>
             <h3 class="font-bold my-5">Customer</h3>
-            <div formGroupName="customer" class="card flex flex-col md:flex-row gap-4">
-                <p-inputgroup>
-                    <input type="text" formControlName="firstName" pInputText placeholder="First Name" />
-                </p-inputgroup>
+            <div formGroupName="customer" class="card flex flex-col justify-between md:flex-row gap-4">
+                <div class="flex w-full flex-col gap-2">
+                    <input type="text" class="w-full" formControlName="firstName" pInputText placeholder="First Name" />
 
-                <p-inputgroup>
+                    @if (firstName?.invalid && (firstName?.dirty || firstName?.touched)) {
+                        @if (firstName?.errors?.['required']) {
+                            <p-message severity="error" text="First Name is required"></p-message>
+    
+                        }
+    
+                        @if (firstName?.errors?.['minlength']) {
+                            <p-message text="First Name must be at least 2 characters long" severity="error">
+                                
+                            </p-message>    
+                        }
+                    }
+
+                </div>
+
+                <div class="flex w-full flex-col gap-2">
                     <input type="text" formControlName="lastName" pInputText placeholder="Last Name" />
-                </p-inputgroup>
+                    
+                    @if (lastName?.invalid && (lastName?.dirty || lastName?.touched)) {
+                        @if (lastName?.errors?.['required']) {
+                            <p-message severity="error" text="Last Name is required"></p-message>
+    
+                        }
+    
+                        @if (lastName?.errors?.['minlength']) {
+                            <p-message text="Last Name must be at least 2 characters long" severity="error"></p-message>    
+                        }
+                    }
+                </div>
 
-                <p-inputgroup>
+                <div class="flex w-full flex-col gap-2">
                     <input type="email" formControlName="email" pInputText placeholder="Email" />
-                </p-inputgroup>
+
+                    @if (email?.invalid && (email?.dirty || email?.touched)) {
+                        @if (email?.errors?.['required']) {
+                            <p-message severity="error" text="Email is required"></p-message>
+    
+                        }
+    
+                        @if (email?.errors?.['pattern']) {
+                            <p-message text="Only valid emails are accepted" severity="error">
+                                
+                            </p-message>    
+                        }
+                    }
+                </div>
             </div>
         </div>
 

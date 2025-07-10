@@ -1,16 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
-import { Checkbox, CheckboxChangeEvent } from 'primeng/checkbox';
-import { DatePicker } from 'primeng/datepicker';
-import { FloatLabel } from 'primeng/floatlabel';
+import { Checkbox } from 'primeng/checkbox';
 import { ShopFormService } from '../../services/shop-form.service';
 import { Country } from '../../common/country';
 import { State } from '../../common/state';
+import { CommonModule } from '@angular/common';
+import { MessageModule } from 'primeng/message';
+
 
 
 interface City {
@@ -33,6 +34,8 @@ interface CardType {
     Select,
     FormsModule,
     Checkbox,
+    CommonModule,
+    MessageModule
 ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss'
@@ -95,9 +98,10 @@ value1: Date | undefined;
 
     this.checkoutFormGroup = this.fb.group({
       customer: this.fb.group({
-        firstName: [''],
-        lastName: [''],
-        email: ['']
+        firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        email: new FormControl('',
+         [ Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
       }),
       shippingAddress: this.fb.group({
         street: [''],
@@ -152,11 +156,27 @@ value1: Date | undefined;
     )
   }
 
+  get firstName() {
+    return this.checkoutFormGroup.get('customer.firstName')
+  }
+
+  get lastName() {
+    return this.checkoutFormGroup.get('customer.lastName')
+  }
+
+   get email() {
+    return this.checkoutFormGroup.get('customer.email')
+  }
+
 
   onSubmit() {
     console.log(this.checkoutFormGroup.get('billingAddress')?.value)
     console.log("The shipping Address Country = " + this.checkoutFormGroup.get('shippingAddress')?.value.country.name)
     console.log("The shipping Address State = " + this.checkoutFormGroup.get('shippingAddress')?.value.state.name)
+
+    if(this.checkoutFormGroup.invalid) {
+      this.checkoutFormGroup.markAllAsTouched();
+    }
 
   }
 
@@ -164,8 +184,12 @@ value1: Date | undefined;
     if(event.checked) {
       this.checkoutFormGroup.controls['billingAddress']
       .setValue(this.checkoutFormGroup.controls['shippingAddress'].value)
+
+      this.billingAddressStates = this.shippingAddressStates
     } else {
       this.checkoutFormGroup.controls['billingAddress'].reset()
+
+      this.billingAddressStates = []
     }
   }
 
