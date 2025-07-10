@@ -11,6 +11,7 @@ import { Country } from '../../common/country';
 import { State } from '../../common/state';
 import { CommonModule } from '@angular/common';
 import { MessageModule } from 'primeng/message';
+import { ShopValidators } from '../../validators/shop-validators';
 
 
 
@@ -98,10 +99,10 @@ value1: Date | undefined;
 
     this.checkoutFormGroup = this.fb.group({
       customer: this.fb.group({
-        firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-        lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        firstName: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhiteSpace]),
+        lastName: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhiteSpace]),
         email: new FormControl('',
-         [ Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
+         [ Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), ShopValidators.notOnlyWhiteSpace])
       }),
       shippingAddress: this.fb.group({
         street: [''],
