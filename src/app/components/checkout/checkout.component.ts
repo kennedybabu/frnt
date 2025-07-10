@@ -105,24 +105,24 @@ value1: Date | undefined;
          [ Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), ShopValidators.notOnlyWhiteSpace])
       }),
       shippingAddress: this.fb.group({
-        street: [''],
-        city: [null],
-        state: [''],
-        country: [null],
-        zipCode: [''],
+        street: new FormControl('', [Validators.required, Validators.minLength(5), ShopValidators.notOnlyWhiteSpace]),
+        city: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhiteSpace]),
+        state: new FormControl('', Validators.required),
+        country:  new FormControl('', Validators.required),
+        zipCode: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhiteSpace]),
       }),
       billingAddress: this.fb.group({
-        street: [''],
-        city: [null],
-        state: [''],
-        country: [null],
-        zipCode: [''],
+        street: new FormControl('', [Validators.required, Validators.minLength(5), ShopValidators.notOnlyWhiteSpace]),
+        city: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhiteSpace]),
+        state: new FormControl('', Validators.required),
+        country:  new FormControl('', Validators.required),
+        zipCode: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhiteSpace]),
       }),
       creditCard: this.fb.group({
-        cardType: [''],
-        nameOnCard: [''],
-        cardNumber: [''],
-        securityCode: [''],
+        cardType: new FormControl('', Validators.required),
+        nameOnCard: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhiteSpace]),
+        cardNumber: new FormControl('', [Validators.pattern('[0-9]{16}]')]),
+        securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{16}')]),
         expirationMonth: [''],
         expirationYear: [''],
 
@@ -168,6 +168,66 @@ value1: Date | undefined;
    get email() {
     return this.checkoutFormGroup.get('customer.email')
   }
+
+  get shippingAddressCountry() {
+    return this.checkoutFormGroup.get('shippingAddress.country')
+  }
+  
+  get shippingAddressCity() {
+    return this.checkoutFormGroup.get('shippingAddress.city')
+  }
+
+  get shippingAddressState() {
+    return this.checkoutFormGroup.get('shippingAddress.state')
+  }
+
+  get shippingAddressStreet() {
+    return this.checkoutFormGroup.get('shippingAddress.street')
+  }
+
+
+  get shippingAddressZipCode() {
+    return this.checkoutFormGroup.get('shippingAddress.zipCode')
+  }
+
+
+  get billingAddressCountry() {
+    return this.checkoutFormGroup.get('billingAddress.country')
+  }
+  
+  get billingAddressCity() {
+    return this.checkoutFormGroup.get('billingAddress.city')
+  }
+
+  get billingAddressState() {
+    return this.checkoutFormGroup.get('billingAddress.state')
+  }
+
+  get billingAddressStreet() {
+    return this.checkoutFormGroup.get('billingAddress.street')
+  }
+
+
+  get billingAddressZipCode() {
+    return this.checkoutFormGroup.get('billingAddress.zipCode')
+  }
+
+  get creditCardType() {
+    return this.checkoutFormGroup.get('creditCard.cardType')
+  }
+
+  get creditCardNameOnCard() {
+    return this.checkoutFormGroup.get('creditCard.nameOnCard')
+  }
+
+  get creditCardNumber() {
+    return this.checkoutFormGroup.get('creditCard.cardNumber')
+  }
+
+  get creditCardSecurityCode() {
+    return this.checkoutFormGroup.get('creditCard.securityCode')
+  }
+  
 
 
   onSubmit() {

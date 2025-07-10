@@ -50,6 +50,10 @@
                                 
                             </p-message>    
                         }
+
+                        @if (firstName?.errors?.['notOnlyWhitespace']) {
+
+                        }
                     }
 
                 </div>
@@ -59,12 +63,15 @@
                     
                     @if (lastName?.invalid && (lastName?.dirty || lastName?.touched)) {
                         @if (lastName?.errors?.['required']) {
-                            <p-message severity="error" text="Last Name is required"></p-message>
-    
+                            <p-message severity="error" text="Last Name is required"></p-message>    
                         }
     
                         @if (lastName?.errors?.['minlength']) {
                             <p-message text="Last Name must be at least 2 characters long" severity="error"></p-message>    
+                        }
+
+                        @if (lastName?.errors?.['notOnlyWhitespace']) {
+
                         }
                     }
                 </div>
@@ -74,14 +81,14 @@
 
                     @if (email?.invalid && (email?.dirty || email?.touched)) {
                         @if (email?.errors?.['required']) {
-                            <p-message severity="error" text="Email is required"></p-message>
-    
+                            <p-message severity="error" text="Email is required"></p-message>    
                         }
     
                         @if (email?.errors?.['pattern']) {
-                            <p-message text="Only valid emails are accepted" severity="error">
-                                
-                            </p-message>    
+                            <p-message text="Only valid emails are accepted" severity="error"></p-message>    
+                        }
+
+                        @if (email?.errors?.['notOnlyWhitespace']) {
                         }
                     }
                 </div>
@@ -92,27 +99,67 @@
 
         <div>
             <h3 class="font-bold my-5">Shipping Address</h3>
-            <div formGroupName="shippingAddress" class="card flex flex-col md:flex-row gap-4">
-                <p-inputgroup>
-                    <p-select [options]="countries" (onChange)="getStates('shippingAddress')" optionLabel="name" formControlName="country" [checkmark]="true" [showClear]="true" placeholder="Country" class="w-full md:w-56" />
-                </p-inputgroup>
+            <div formGroupName="shippingAddress" class="card flex flex-col justify-between md:flex-row gap-4">
+                <div class="flex w-full flex-col gap-2 w-full">
+                    <p-select  [options]="countries" (onChange)="getStates('shippingAddress')" optionLabel="name" formControlName="country" [checkmark]="true" [showClear]="true" placeholder="Country" class="w-full" />
+                        @if (shippingAddressCountry?.invalid && (shippingAddressCountry?.dirty || shippingAddressCountry?.touched) || shippingAddressCountry?.errors?.['notOnlyWhitespace']) {
+                            @if (shippingAddressCountry?.errors?.['required']) {
+                                <p-message severity="error" text="Country is required"></p-message>    
+                            }
+                        }
+                </div>
 
-                <p-inputgroup>
-                    <p-select [options]="shippingAddressStates" formControlName="state" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="State" class="w-full md:w-56" />
-                </p-inputgroup>
+                <div class="flex w-full flex-col gap-2 w-full">
+                    <p-select [options]="shippingAddressStates" formControlName="state" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="State" class="w-full" />
+                      @if (shippingAddressState?.invalid && (shippingAddressState?.dirty || shippingAddressState?.touched) || shippingAddressState?.errors?.['notOnlyWhitespace']) {
+                            @if (shippingAddressState?.errors?.['required']) {
+                                <p-message severity="error" text="State is required"></p-message>    
+                            }
+                        }
+                </div>
 
-                <!-- <p-inputgroup>
-                    <input type="text" formControlName="state" pInputText placeholder="State" />
-                </p-inputgroup> -->
+                <div class="flex w-full flex-col gap-2 w-full">
+                    <input type="text" formControlName="city" pInputText placeholder="City" />
+                        @if (shippingAddressCity?.invalid && (shippingAddressCity?.dirty || shippingAddressCity?.touched)) {
+                            @if (shippingAddressCity?.errors?.['required']) {
+                                <p-message severity="error" text="City is required"></p-message>    
+                            }
+                        }
+                        @if (shippingAddressCity?.errors?.['notOnlyWhitespace']) {}
 
-                <p-inputgroup>
+                </div>
+
+                <div class="flex w-full flex-col gap-2 w-full">
                     <input type="text" formControlName="street" pInputText placeholder="Street" />
-                </p-inputgroup>
+                     <div class="flex w-full flex-col gap-2 w-full">
+                        <!-- <p-select  [options]="countries" (onChange)="getStates('shippingAddress')" optionLabel="name" formControlName="street" [checkmark]="true" [showClear]="true" placeholder="Street" class="w-full" /> -->
+                        @if (shippingAddressStreet?.invalid && (shippingAddressStreet?.dirty || shippingAddressStreet?.touched)) {
+                            @if (shippingAddressStreet?.errors?.['required']) {
+                                <p-message severity="error" text="Street is required"></p-message>    
+                            }
+                        }
+
+                        @if (shippingAddressStreet?.errors?.['notOnlyWhitespace']) {}
+                    </div>
+                </div>
 
 
-                <p-inputgroup>
+                <div class="flex w-full flex-col gap-2 w-full">
                     <input type="text" formControlName="zipCode" pInputText placeholder="Zip Code" />
-                </p-inputgroup>
+                        @if (shippingAddressZipCode?.invalid && (shippingAddressZipCode?.dirty || shippingAddressZipCode?.touched)) {
+                            @if (shippingAddressZipCode?.errors?.['required']) {
+                                <p-message severity="error" text="Zip code is required"></p-message>    
+                            }
+        
+                            @if (shippingAddressZipCode?.errors?.['minlength']) {
+                                <p-message text="Zip Code must be at least 3 characters long" severity="error"></p-message>    
+                            }
+                        }
+
+                        @if (shippingAddressZipCode?.errors?.['notOnlyWhitespace']) {
+
+                        }
+                </div>
 
             </div>
         </div>
@@ -125,7 +172,7 @@
 
         <div>
             <h3 class="font-bold my-5">Billing Address</h3>
-            <div formGroupName="billingAddress" class="card flex flex-col md:flex-row gap-4">
+            <!-- <div formGroupName="billingAddress" class="card flex flex-col md:flex-row gap-4">
                 <p-inputgroup>
                     <p-select [options]="countries" (onChange)="getStates('billingAddress')" formControlName="country" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Country" class="w-full md:w-56" />
                 </p-inputgroup>
@@ -133,10 +180,6 @@
                 <p-inputgroup>
                     <p-select [options]="billingAddressStates" formControlName="state" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="City" class="w-full md:w-56" />
                 </p-inputgroup>
-<!-- 
-                <p-inputgroup>
-                    <input type="text" formControlName="state" pInputText placeholder="State" />
-                </p-inputgroup> -->
 
                 <p-inputgroup>
                     <input type="text" formControlName="street" pInputText placeholder="Street" />
@@ -147,6 +190,69 @@
                     <input type="text" formControlName="zipCode" pInputText placeholder="Zip Code" />
                 </p-inputgroup>
 
+            </div> -->
+            <div formGroupName="shippingAddress" class="card flex flex-col justify-between md:flex-row gap-4">
+                <div class="flex w-full flex-col gap-2 w-full">
+                    <p-select  [options]="countries" (onChange)="getStates('shippingAddress')" optionLabel="name" formControlName="country" [checkmark]="true" [showClear]="true" placeholder="Country" class="w-full" />
+                        @if (billingAddressCountry?.invalid && (billingAddressCountry?.dirty || billingAddressCountry?.touched)) {
+                            @if (billingAddressCountry?.errors?.['required']) {
+                                <p-message severity="error" text="Country is required"></p-message>    
+                            }
+                        }
+                </div>
+
+                <div class="flex w-full flex-col gap-2 w-full">
+                    <p-select [options]="billingAddressStates" formControlName="state" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="State" class="w-full" />
+                      @if (billingAddressState?.invalid && (billingAddressState?.dirty || billingAddressState?.touched)) {
+                            @if (billingAddressState?.errors?.['required']) {
+                                <p-message severity="error" text="State is required"></p-message>    
+                            }
+                        }
+                        @if (billingAddressState?.errors?.['notOnlyWhitespace']) {}
+                </div>
+
+                <div class="flex w-full flex-col gap-2 w-full">
+                    <input type="text" formControlName="city" pInputText placeholder="City" />
+                        @if (billingAddressCity?.invalid && (billingAddressCity?.dirty || billingAddressCity?.touched)) {
+                            @if (billingAddressCity?.errors?.['required']) {
+                                <p-message severity="error" text="City is required"></p-message>    
+                            }
+                        }
+                        @if (billingAddressCity?.errors?.['notOnlyWhitespace']) {}
+
+                </div>
+
+                <div class="flex w-full flex-col gap-2 w-full">
+                    <input type="text" formControlName="street" pInputText placeholder="Street" />
+                     <div class="flex w-full flex-col gap-2 w-full">
+                        @if (billingAddressStreet?.invalid && (billingAddressStreet?.dirty || billingAddressStreet?.touched)) {
+                            @if (billingAddressStreet?.errors?.['required']) {
+                                <p-message severity="error" text="Street is required"></p-message>    
+                            }
+                        }
+
+                        @if (billingAddressStreet?.errors?.['notOnlyWhitespace']) {}
+                    </div>
+                </div>
+
+
+                <div class="flex w-full flex-col gap-2 w-full">
+                    <input type="text" formControlName="zipCode" pInputText placeholder="Zip Code" />
+                        @if (billingAddressZipCode?.invalid && (billingAddressZipCode?.dirty || billingAddressZipCode?.touched)) {
+                            @if (billingAddressZipCode?.errors?.['required']) {
+                                <p-message severity="error" text="Zip code is required"></p-message>    
+                            }
+        
+                            @if (billingAddressZipCode?.errors?.['minlength']) {
+                                <p-message text="Zip Code must be at least 3 characters long" severity="error"></p-message>    
+                            }
+                        }
+
+                        @if (billingAddressZipCode?.errors?.['notOnlyWhitespace']) {
+
+                        }
+                </div>
+
             </div>
         </div>
 
@@ -154,33 +260,81 @@
         <div>
             <h3 class="font-bold my-5">Billing Address</h3>
             <div formGroupName="creditCard" class="card flex flex-col md:flex-row gap-4">
-                <p-inputgroup>
+                <div class="flex w-full flex-col gap-2 w-full">
                     <p-select [options]="cardType" formControlName="cardType" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Country" class="w-full md:w-56" />
-                </p-inputgroup>
-<!-- 
-                <p-inputgroup>
-                    <p-select [options]="cities" formControlName="city" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="City" class="w-full md:w-56" />
-                </p-inputgroup> -->
+                     @if (creditCardType?.invalid && (creditCardType?.dirty || creditCardType?.touched)) {
+                            @if (creditCardType?.errors?.['required']) {
+                                <p-message severity="error" text="Credit card type required"></p-message>    
+                            }
+                        }
+                </div>
 
-                <p-inputgroup>
+                <div class="flex w-full flex-col gap-2 w-full">
                     <input type="text" formControlName="nameOnCard" pInputText placeholder="Name on Card" />
-                </p-inputgroup>
+                        @if (creditCardNameOnCard?.invalid && (creditCardNameOnCard?.dirty || creditCardNameOnCard?.touched)) {
+                            @if (creditCardNameOnCard?.errors?.['required']) {
+                                <p-message severity="error" text="Name On Card is required"></p-message>    
+                            }
+        
+                            @if (creditCardNameOnCard?.errors?.['minlength']) {
+                                <p-message text="Name On Card must be at least 3 characters long" severity="error"></p-message>    
+                            }
+                        }
 
-                 <p-inputgroup>
-                    <input type="text" formControlName="cardNumber" pInputText placeholder="Name on Card" />
-                </p-inputgroup>
+                        @if (creditCardNameOnCard?.errors?.['notOnlyWhitespace']) {
 
-                <p-inputgroup>
+                        }
+                </div>
+
+                 <div class="flex w-full flex-col gap-2 w-full">
+                    <input type="text" formControlName="cardNumber" pInputText placeholder="Card Number" />
+                        @if (creditCardNumber?.invalid && (creditCardNumber?.dirty || creditCardNumber?.touched)) {
+                            @if (creditCardNumber?.errors?.['required']) {
+                                <p-message severity="error" text="Credit Card No is required"></p-message>    
+                            }
+        
+                            @if (creditCardNumber?.errors?.['minlength']) {
+                                <p-message text="Credit Card No must be at least 16 characters long" severity="error"></p-message>    
+                            }
+
+                            @if (creditCardNumber?.errors?.['pattern']) {
+                                <p-message text="Credit Card No must be at least 3 characters long" severity="error"></p-message>    
+                            }
+                        }
+
+                        @if (creditCardNumber?.errors?.['notOnlyWhitespace']) {
+
+                        }
+                </div>
+
+                <div class="flex w-full flex-col gap-2 w-full">
                     <input type="text" formControlName="securityCode" pInputText placeholder="Security Code" />
-                </p-inputgroup>
+                        @if (creditCardSecurityCode?.invalid && (creditCardSecurityCode?.dirty || creditCardSecurityCode?.touched)) {
+                            @if (creditCardSecurityCode?.errors?.['required']) {
+                                <p-message severity="error" text="Security Code No is required"></p-message>    
+                            }
+        
+                            @if (creditCardSecurityCode?.errors?.['minlength']) {
+                                <p-message text="Security Code No must be at least 16 characters long" severity="error"></p-message>    
+                            }
 
-                <p-inputgroup>
+                            @if (creditCardSecurityCode?.errors?.['pattern']) {
+                                <p-message text="Security Code No must be at least 3 characters long" severity="error"></p-message>    
+                            }
+                        }
+
+                        @if (creditCardNumber?.errors?.['notOnlyWhitespace']) {
+
+                        }
+                </div>
+
+                <div class="flex w-full flex-col gap-2 w-full">
                     <p-select (onChange)="handleMonthsAndYears()" [options]="creditCardYears" formControlName="expirationYear" [checkmark]="true" [showClear]="true" placeholder="Expiration Year" class="w-full md:w-56" />
-                </p-inputgroup>  
+                </div>  
 
-                 <p-inputgroup>
+                 <div class="flex w-full flex-col gap-2 w-full">
                     <p-select [options]="creditCadrMonths" formControlName="expirationMonth" [checkmark]="true"  [showClear]="true" placeholder="Expiration Month" class="w-full md:w-56" />
-                </p-inputgroup>   
+                </div>   
 
             </div>
         </div>
