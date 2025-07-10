@@ -56,16 +56,16 @@
             <h3 class="font-bold my-5">Shipping Address</h3>
             <div formGroupName="shippingAddress" class="card flex flex-col md:flex-row gap-4">
                 <p-inputgroup>
-                    <p-select [options]="cities" formControlName="country" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Country" class="w-full md:w-56" />
+                    <p-select [options]="countries" (onChange)="getStates('shippingAddress')" optionLabel="name" formControlName="country" [checkmark]="true" [showClear]="true" placeholder="Country" class="w-full md:w-56" />
                 </p-inputgroup>
 
                 <p-inputgroup>
-                    <p-select [options]="cities" formControlName="city" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="City" class="w-full md:w-56" />
+                    <p-select [options]="shippingAddressStates" formControlName="state" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="State" class="w-full md:w-56" />
                 </p-inputgroup>
 
-                <p-inputgroup>
+                <!-- <p-inputgroup>
                     <input type="text" formControlName="state" pInputText placeholder="State" />
-                </p-inputgroup>
+                </p-inputgroup> -->
 
                 <p-inputgroup>
                     <input type="text" formControlName="street" pInputText placeholder="Street" />
@@ -89,16 +89,16 @@
             <h3 class="font-bold my-5">Billing Address</h3>
             <div formGroupName="billingAddress" class="card flex flex-col md:flex-row gap-4">
                 <p-inputgroup>
-                    <p-select [options]="cities" formControlName="country" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Country" class="w-full md:w-56" />
+                    <p-select [options]="countries" (onChange)="getStates('billingAddress')" formControlName="country" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Country" class="w-full md:w-56" />
                 </p-inputgroup>
 
                 <p-inputgroup>
-                    <p-select [options]="cities" formControlName="city" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="City" class="w-full md:w-56" />
+                    <p-select [options]="billingAddressStates" formControlName="state" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="City" class="w-full md:w-56" />
                 </p-inputgroup>
-
+<!-- 
                 <p-inputgroup>
                     <input type="text" formControlName="state" pInputText placeholder="State" />
-                </p-inputgroup>
+                </p-inputgroup> -->
 
                 <p-inputgroup>
                     <input type="text" formControlName="street" pInputText placeholder="Street" />

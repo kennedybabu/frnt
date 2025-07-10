@@ -9,6 +9,8 @@ import { Checkbox, CheckboxChangeEvent } from 'primeng/checkbox';
 import { DatePicker } from 'primeng/datepicker';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ShopFormService } from '../../services/shop-form.service';
+import { Country } from '../../common/country';
+import { State } from '../../common/state';
 
 
 interface City {
@@ -31,8 +33,6 @@ interface CardType {
     Select,
     FormsModule,
     Checkbox,
-    FloatLabel,
-    DatePicker
 ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss'
@@ -62,6 +62,13 @@ value1: Date | undefined;
   totalQuantity: number = 0    
   creditCardYears: number[]=[]
   creditCadrMonths: number [] = []
+
+  countries: Country[]= []
+  states: State[] = []
+
+  shippingAddressStates: State[] = []
+  billingAddressStates: State[] = []
+
 
 
 
@@ -135,11 +142,22 @@ value1: Date | undefined;
         this.creditCardYears = data;
       }
     )
+
+    //populate countries
+    this.formService.getCountries().subscribe(
+      data => {
+        this.countries = data;
+        console.log(data)
+      }
+    )
   }
 
 
   onSubmit() {
     console.log(this.checkoutFormGroup.get('billingAddress')?.value)
+    console.log("The shipping Address Country = " + this.checkoutFormGroup.get('shippingAddress')?.value.country.name)
+    console.log("The shipping Address State = " + this.checkoutFormGroup.get('shippingAddress')?.value.state.name)
+
   }
 
   copyShippingToBillingAddress(event: any) {
@@ -168,6 +186,28 @@ value1: Date | undefined;
     this.formService.getCreditCardMonths(startMonth).subscribe(
       data => {
         this.creditCadrMonths = data; 
+      }
+    )
+  }
+
+  getStates(formGroupName: string) {
+    const formGroup = this.checkoutFormGroup.get(formGroupName);
+
+    const countryCode = formGroup?.value.country.code
+    const countryName =  formGroup?.value.country.name 
+
+    console.log(countryCode, countryName)
+    this.formService.getStates(countryCode).subscribe(
+      data => {
+        console.log(data)
+        if(formGroupName === 'shippingAddress') {
+            this.shippingAddressStates = data
+        } else {
+          this.billingAddressStates = data
+        }
+
+        //select first item by default
+        formGroup?.get('state')?.setValue(data[0]);
       }
     )
   }
