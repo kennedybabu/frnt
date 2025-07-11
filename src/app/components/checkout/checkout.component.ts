@@ -12,6 +12,7 @@ import { State } from '../../common/state';
 import { CommonModule } from '@angular/common';
 import { MessageModule } from 'primeng/message';
 import { ShopValidators } from '../../validators/shop-validators';
+import { CartService } from '../../services/cart.service';
 
 
 
@@ -58,6 +59,7 @@ value1: Date | undefined;
 
 
   fb = inject(FormBuilder);
+  cartService = inject(CartService)
   formService = inject(ShopFormService)
 
   checkoutFormGroup!: FormGroup
@@ -155,6 +157,25 @@ value1: Date | undefined;
         console.log(data)
       }
     )
+
+    this.reviewCartDetails()
+  }
+
+  reviewCartDetails() {
+    // susbscribe to cart service quantity and price
+    this.cartService.totalQuantity.subscribe(
+      data => {
+        this.totalQuantity = data
+      }
+
+    )  
+
+     this.cartService.totalPrice.subscribe(
+      data => {
+        this.totalPrice = data
+      }
+
+    ) 
   }
 
   get firstName() {
