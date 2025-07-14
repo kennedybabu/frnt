@@ -7,7 +7,7 @@ export class Product {
     "active": boolean;
     "unitsInStock": number;
     "dateCreated": Date;
-    "lastUpdated": Date;
-    "id": number
+    "lastUpdate": Date;
+    "id": string
     
 }

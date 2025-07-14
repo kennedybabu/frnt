@@ -258,7 +258,7 @@
 
         <!-- credit card info -->
         <div>
-            <h3 class="font-bold my-5">Billing Address</h3>
+            <h3 class="font-bold my-5">Credit Card</h3>
             <div formGroupName="creditCard" class="card flex flex-col md:flex-row gap-4">
                 <div class="flex w-full flex-col gap-2 w-full">
                     <p-select [options]="cardType" formControlName="cardType" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Country" class="w-full md:w-56" />
@@ -297,9 +297,9 @@
                                 <p-message text="Credit Card No must be at least 16 characters long" severity="error"></p-message>    
                             }
 
-                            @if (creditCardNumber?.errors?.['pattern']) {
+                            <!-- @if (creditCardNumber?.errors?.['pattern']) {
                                 <p-message text="Credit Card No must be at least 3 characters long" severity="error"></p-message>    
-                            }
+                            } -->
                         }
 
                         @if (creditCardNumber?.errors?.['notOnlyWhitespace']) {
@@ -315,7 +315,7 @@
                             }
         
                             @if (creditCardSecurityCode?.errors?.['minlength']) {
-                                <p-message text="Security Code No must be at least 16 characters long" severity="error"></p-message>    
+                                <p-message text="Security Code No must be at least 3 characters long" severity="error"></p-message>    
                             }
 
                             @if (creditCardSecurityCode?.errors?.['pattern']) {

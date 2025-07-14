@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
@@ -13,6 +12,11 @@ import { CommonModule } from '@angular/common';
 import { MessageModule } from 'primeng/message';
 import { ShopValidators } from '../../validators/shop-validators';
 import { CartService } from '../../services/cart.service';
+import { CheckoutService } from '../../services/checkout.service';
+import { Router } from '@angular/router';
+import { Order } from '../../common/order';
+import { OrderItem } from '../../common/order-item';
+import { Purchase } from '../../common/purchase';
 
 
 
@@ -30,7 +34,6 @@ interface CardType {
   selector: 'app-checkout',
   imports: [
     ReactiveFormsModule,
-    InputGroup,
     InputGroupAddonModule,
     InputTextModule,
     Select,
@@ -61,6 +64,8 @@ value1: Date | undefined;
   fb = inject(FormBuilder);
   cartService = inject(CartService)
   formService = inject(ShopFormService)
+  checkoutService = inject(CheckoutService)
+  router = inject(Router)
 
   checkoutFormGroup!: FormGroup
 
@@ -107,14 +112,14 @@ value1: Date | undefined;
          [ Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), ShopValidators.notOnlyWhiteSpace])
       }),
       shippingAddress: this.fb.group({
-        street: new FormControl('', [Validators.required, Validators.minLength(5), ShopValidators.notOnlyWhiteSpace]),
+        street: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhiteSpace]),
         city: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhiteSpace]),
         state: new FormControl('', Validators.required),
         country:  new FormControl('', Validators.required),
         zipCode: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhiteSpace]),
       }),
       billingAddress: this.fb.group({
-        street: new FormControl('', [Validators.required, Validators.minLength(5), ShopValidators.notOnlyWhiteSpace]),
+        street: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhiteSpace]),
         city: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhiteSpace]),
         state: new FormControl('', Validators.required),
         country:  new FormControl('', Validators.required),
@@ -123,8 +128,8 @@ value1: Date | undefined;
       creditCard: this.fb.group({
         cardType: new FormControl('', Validators.required),
         nameOnCard: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhiteSpace]),
-        cardNumber: new FormControl('', [Validators.pattern('[0-9]{16}]')]),
-        securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{16}')]),
+        cardNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9]{16}')]),
+        securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}')]),
         expirationMonth: [''],
         expirationYear: [''],
 
@@ -154,7 +159,6 @@ value1: Date | undefined;
     this.formService.getCountries().subscribe(
       data => {
         this.countries = data;
-        console.log(data)
       }
     )
 
@@ -252,18 +256,90 @@ value1: Date | undefined;
 
 
   onSubmit() {
-    console.log(this.checkoutFormGroup.get('billingAddress')?.value)
-    console.log("The shipping Address Country = " + this.checkoutFormGroup.get('shippingAddress')?.value.country.name)
-    console.log("The shipping Address State = " + this.checkoutFormGroup.get('shippingAddress')?.value.state.name)
 
     if(this.checkoutFormGroup.invalid) {
       this.checkoutFormGroup.markAllAsTouched();
+      return;
     }
+
+    // set up order
+    let order = new Order;
+    order.totalPrice = this.totalPrice;
+    order.totalQuantity = this.totalQuantity;
+
+    //get cart items 
+    const cartItems = this.cartService.cartItems;
+
+    // createOrder items from cart
+    let orderItems: OrderItem[] = [];
+    // for (let i = 0; i < cartItems.length; i++) {
+    //   orderItems[i] = new OrderItem(cartItems[i]);
+    // }
+
+    orderItems = cartItems.map(item => new OrderItem(item));
+
+
+    let purchase = new Purchase();
+
+    purchase.shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;
+    const shippingState: State = JSON.parse(JSON.stringify(purchase.shippingAddress.state))
+    const shippingCountry: Country = JSON.parse(JSON.stringify(purchase.shippingAddress.country))
+
+    purchase.shippingAddress.state = shippingState.name;
+    purchase.shippingAddress.country = shippingCountry.name;
+
+    purchase.customer = this.checkoutFormGroup.controls['customer'].value 
+    // setup customer
+
+    // billing address 
+    purchase.billingAddress = this.checkoutFormGroup.controls['billingAddress'].value;
+    const billingState: State = JSON.parse(JSON.stringify(purchase.billingAddress.state))
+    const billingCountry: Country = JSON.parse(JSON.stringify(purchase.billingAddress.country))
+
+    purchase.billingAddress.state = billingState.name;
+    purchase.billingAddress.country = billingState.name;
+
+    // shipping address
+
+    // popultae purchase
+    purchase.order = order;
+    purchase.orderItems = orderItems;
+
+    console.log('clicked')
+
+
+    // call rest API endpoint
+    this.checkoutService.placeOrder(purchase).subscribe(
+      {
+        next: response => {
+          alert(`Your order has been received.\nOrder tracking number ${response.orderTrackingNumber}`)
+          this.resetCart()
+        },
+        error: err => {
+          alert(`There was an error: ${err.message}`)
+         console.log(err)
+        }
+      }
+    )
 
   }
 
+  resetCart() {
+    // reset cart data 
+    this.cartService.cartItems = []
+    this.cartService.totalPrice.next(0)
+    this.cartService.totalQuantity.next(0)
+
+    this.checkoutFormGroup.reset()
+    // form data 
+
+    this.router.navigateByUrl("/products")
+
+    // navigate to the products page
+  }
+
   copyShippingToBillingAddress(event: any) {
-    if(event.checked) {
+    if(event?.checked) {
       this.checkoutFormGroup.controls['billingAddress']
       .setValue(this.checkoutFormGroup.controls['shippingAddress'].value)
 
