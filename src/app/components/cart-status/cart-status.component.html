@@ -1,7 +1,7 @@
-<div class="flex items-center gap-5">
-    <div class="relative">
+<div class="flex h-full items-center">
+    <div class="h-full flex items-center">
         <i (click)="openCart()" class="pi pi-cart-plus text-xl cursor-pointer"></i>
-        <div class="absolute rounded-full bg-white h-[13px] text-gray-600 text-sm flex items-center w-[13px]">{{ totalQuantity }}</div>
+        <!-- <div class="absolute rounded-full bg-white h-[13px] text-gray-600 text-sm flex items-center w-[13px]">{{ totalQuantity }}</div> -->
     </div>
     <!-- <i class="pi pi-user text-xl cursor-pointer"></i> -->
     <p-drawer header="Cart" [(visible)]="visible" position="right">

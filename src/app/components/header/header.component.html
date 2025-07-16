@@ -1,5 +1,5 @@
 <div class="w-full">
-    <div class="hidden md:flex w-full h-[100px] flex items-center justify-between">
+    <!-- <div class="hidden md:flex w-full h-[100px] flex items-center justify-between">
         <h1 (click)="navigate()" class="text-2xl font-bold">Outdoor</h1>
          <div class="flex items-center">
             <input #input (keyup.enter)="search(input.value)" class="border p-2" placeholder="Search" />
@@ -9,18 +9,54 @@
             <p>customer service</p>
             <h2 class="font-bold text-xl">+254 000 000 21</h2>
         </div>
-    </div>
-    <div class="w-full flex items-center justify-between bg-[#cc3333] h-[54px] lg:px-[100px] text-white">
+    </div> -->
+    <!-- <div class="w-full flex items-center justify-between bg-[#cc3333] h-[54px] lg:px-[100px] text-white">
         <div>
             shop by category
         </div>
         <div class="gap-2">
-            <!-- <p-menubar class="gap-2 custom-menu" [model]="items"></p-menubar> -->
         </div>
         <div class="flex items-center gap-5">
-            <!-- <i class="pi pi-cart-plus text-xl cursor-pointer"></i> -->
-             <app-cart-status></app-cart-status>
-            <i class="pi pi-user text-xl cursor-pointer"></i>
         </div>
-    </div>
+    </div> -->
+    <!-- small screen header -->
+    <div class="w-full h-[44px] bg-[#f8f8fb] flex items-center justify-center">
+       <div class="text-[#777777] w-full flex items-center justify-between px-2 lg:px-[100px]">
+            <div class="md:hidden h-full flex items-center justify-center">
+                <i class="pi pi-bars cursor-pointer" (click)="toggleSidebar()" ></i>
+            </div>
+            <div class="hidden md:flex gap-3 items-center">
+                <p class="text-sm"><i class="pi pi-phone mr-1"></i>+254 000 000 21</p>
+                <p class="text-sm"><i class="pi pi-whatsapp mr-1"></i>+254 000 000 21</p>
+            </div>
+            <div class="h-full flex gap-4 items-center">
+                <app-cart-status></app-cart-status>
+                <i class="pi pi-user text-xl cursor-pointer"></i>
+                <p-button (onClick)="toggleDarkMode()">
+                    @if(!darkMode) {
+                        <i [class]="'pi pi-sun cursor-pointer'"></i>
+                    }
+                    @else {
+                        <i [class]="'pi pi-moon cursor-pointer'"></i>
+                    }
+                </p-button>          
+            </div>
+       </div>
+     </div>
+     <div class="w-full flex flex-col p-2 md:container md:flex-row md:justify-between md:px-[15px] lg:px-[100px] lg:px-[30px]">
+        <div class="items-center justify-center flex p-2">
+            <h2 class="font-bold text-xl" (click)="navigate()">GraBBit</h2>
+        </div>
+        <div class="w-full max-w-[400px]">
+            <div class="rounded  border border-[#eee] flex justify-between p-1 items-center">
+                <input type="text" #input (keyup.enter)="search(input.value)" placeholder="Search for Products..." class="border-none p-1 active:border-none">
+                <i class="pi pi-search mr-2 cursor-pointer" (click)="search(input.value)"></i>
+            </div>
+        </div>
+     </div>
+
+    <!-- side bar -->
+     <p-drawer header="Grabbit" [(visible)]="sidebarOpened" position="left">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, modi iusto! Minima fugit odio asperiores tenetur ipsa culpa laboriosam perspiciatis sequi aperiam doloremque.</p>
+     </p-drawer>
 </div>
