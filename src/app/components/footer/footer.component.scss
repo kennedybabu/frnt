@@ -1,0 +1,17 @@
+li {
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.header {
+    background-color: transparent;
+}
+
+
+.p-accordionpanel > .p-accordionheader,
+.p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader  {
+    background: none;
+    border-top: none;
+    border-radius: 0 0 0 0;
+    border-right: none;
+}

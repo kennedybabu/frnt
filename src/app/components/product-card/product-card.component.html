@@ -5,7 +5,7 @@
     <hr class="sub-color">
     <div class="w-full p-[20px]">
         <p routerLink="/products/{{ product().id }}" class="cursor-pointer text-[14px] main-color">{{ product().name }}</p>
-        <h3 class="font-bold main-color text-[14px]">Ksh{{ product().unitPrice }}</h3>
+        <h3 class="font-bold main-color text-[14px]">{{ product().unitPrice | currency: 'Ksh'}}</h3>
     </div>
     <div>
         <button (click)="addToCart(product())" class="bg-[#cc3333] px-[15px] py-[6px] cursor-pointer mx-2">Add to cart</button>

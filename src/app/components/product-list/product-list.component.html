@@ -1,18 +1,11 @@
 <div class="w-full py-[30px] min-h-[80vh] lg:px-[100px]">
     <div>
-        <h3 class="font-bold text-xl">Featured Products</h3>
+        <h3 class="main-text text-xl">Featured Products</h3>
     </div>
     <div class="w-full gap-2 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 pt-[30px]">
         @for (product of products; track $index) {
-            <!-- <div class="flex items-center justify-between my-1">
-                <p>{{ product.name }}</p>
-                <img src="{{ product.imageUrl }}" class="h-[30px]">
-            </div> -->
-            <app-product-card [product]="product"></app-product-card>
-    
+            <app-product-card [product]="product"></app-product-card>    
         } 
-
-        <!-- if products are empty -->
     </div>
 
     <div *ngIf="products?.length == 0" class="alert bg-red-200 w-full p-2" role="alert">
