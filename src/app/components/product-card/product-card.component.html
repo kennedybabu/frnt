@@ -1,14 +1,13 @@
-<!-- <a routerLink="/products/{{ product().id }}"> -->
-    <div class="h-[370px] w-[265px] border border-gray-200 hover:shadow-sm transition mx-auto">
-        <div class="w-full items-center flex h-[70%]">
-            <img src="{{ product().imageUrl }}" class="w-full h-full mx-auto">
-        </div>
-        <div class="w-full p-2">
-            <p routerLink="/products/{{ product().id }}" class="cursor-pointer">{{ product().name }}</p>
-            <h3 class="font-bold">Ksh{{ product().unitPrice }}</h3>
-        </div>
-        <div>
-            <button (click)="addToCart(product())" class="bg-[#cc3333] px-[15px] py-[6px] cursor-pointer mx-2">Add to cart</button>
-        </div>
+<div class="h-[364px] max-w-[294px] border border-main hover:shadow-sm transition mx-auto group">
+    <div class="w-full items-center flex h-[213px] overflow-hidden">
+        <img src="{{ product().imageUrl }}" class="w-full h-full mx-auto transform transition-transform duration-300 ease-in-out group-hover:scale-110">
     </div>
-<!-- </a> -->
+    <hr class="sub-color">
+    <div class="w-full p-[20px]">
+        <p routerLink="/products/{{ product().id }}" class="cursor-pointer text-[14px] main-color">{{ product().name }}</p>
+        <h3 class="font-bold main-color text-[14px]">Ksh{{ product().unitPrice }}</h3>
+    </div>
+    <div>
+        <button (click)="addToCart(product())" class="bg-[#cc3333] px-[15px] py-[6px] cursor-pointer mx-2">Add to cart</button>
+    </div>
+</div>

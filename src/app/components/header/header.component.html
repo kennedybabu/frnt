@@ -21,11 +21,11 @@
     </div> -->
     <!-- small screen header -->
     <div class="w-full h-[44px] bg-[#f8f8fb] flex items-center justify-center">
-       <div class="text-[#777777] w-full flex items-center justify-between px-2 lg:px-[100px]">
+       <div class="text-[#777777] w-full flex items-center justify-between px-2 lg:px-[100px] lg:py-[10px]">
             <div class="md:hidden h-full flex items-center justify-center">
                 <i class="pi pi-bars cursor-pointer" (click)="toggleSidebar()" ></i>
             </div>
-            <div class="hidden md:flex gap-3 items-center">
+            <div class="hidden sub-text md:flex gap-3 items-center">
                 <p class="text-sm"><i class="pi pi-phone mr-1"></i>+254 000 000 21</p>
                 <p class="text-sm"><i class="pi pi-whatsapp mr-1"></i>+254 000 000 21</p>
             </div>
@@ -45,12 +45,12 @@
      </div>
      <div class="w-full flex flex-col p-2 md:container md:flex-row md:justify-between md:px-[15px] lg:px-[100px] lg:px-[30px]">
         <div class="items-center justify-center flex p-2">
-            <h2 class="font-bold text-xl" (click)="navigate()">GraBBit</h2>
+            <h2 class="main-text text-xl" (click)="navigate()">GraBBit</h2>
         </div>
         <div class="w-full max-w-[400px]">
-            <div class="rounded  border border-[#eee] flex justify-between p-1 items-center">
-                <input type="text" #input (keyup.enter)="search(input.value)" placeholder="Search for Products..." class="border-none p-1 active:border-none">
-                <i class="pi pi-search mr-2 cursor-pointer" (click)="search(input.value)"></i>
+            <div class="rounded  border border-main sub-text flex justify-between p-1 items-center">
+                <input type="text" #input (keyup.enter)="search(input.value)" placeholder="Search for Products..." class="border-none p-1 active:border-none w-full">
+                <i class="pi pi-search mx-2 cursor-pointer" (click)="search(input.value)"></i>
             </div>
         </div>
      </div>

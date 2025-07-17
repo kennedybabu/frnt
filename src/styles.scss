@@ -6,3 +6,42 @@
 * {
     font-family: "Montserrat", Verdana, Geneva, Tahoma, sans-serif;
 }
+
+:root {
+    --main-text-color: #4b5966;
+    --sub-text-color: #777777;
+    --border-color: #eee;
+}
+
+.main-color {
+    color: var(--main-text-color);
+}
+
+.sub-color {
+    color: var(--border-color);
+}
+
+.main-text {
+    color: var(--main-text-color);
+    font-weight: 600;
+}
+
+.sub-text {
+    color: var(--sub-text-color);
+    font-weight: 300;
+}
+
+.border-main {
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+
+    &:active,
+    &:focus {
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+    }
+}
