@@ -1,5 +1,5 @@
-<div class="h-[410px] p-2 lg:px-[100px]">
-    <nav class="">
+<div class="p-2 w-full">
+    <!-- <nav class="">
         <ul>
             @for (link of productCategories; track $index) {
                 <li class="cursor-pointer">
@@ -8,5 +8,23 @@
             }
            
         </ul>
-    </nav>
+    </nav> -->
+
+    <p-carousel class="w-full" [value]="carouselItems" [numVisible]="1" [numScroll]="1" [circular]="false" [responsiveOptions]="responsiveOptions" autoplayInterval="5000">
+        <ng-template let-product #item>
+            <div class="rounded-border border border-surface-200 m-1 p-1 h-full">
+                <div class="w-full h-full text-[#eee] min-h-[70vh] p-[20px] flex justify-center flex-col overlay"
+                [ngStyle]="{
+                    'background-image' : 'url(' + product.image + ')',
+                    'background-size' : 'cover',
+                    'background-position': 'bottom',
+                    'background-repeat' : 'no-repeat'
+                }">
+                <small class="font-bold">Starting at Ksh 450</small>
+                <h2 class="font-bold text-[35px] mb-5">{{ product.text }}</h2>
+                <p-button class="flex items-center gap-1">Shop Now <i class="pi pi-angle-double-right"></i></p-button>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
 </div>
