@@ -1,12 +1,20 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { OktaAuth } from '@okta/okta-auth-js';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
-import { routes } from './app.routes';
+import { oktaConfig, routes } from './app.routes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import Aura from '@primeng/themes/aura';
 import Lara from '@primeng/themes/lara';
+import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
 
+
+const oktaAuth = new OktaAuth({
+    clientId: '0oapnucx3lue2zj305d7',
+    issuer:'https://dev-74952938.okta.com',
+    redirectUri: 'http://localhost:4200/login/callback',
+    scopes: ['openid', 'profile', 'email'],
+})
 
 
 export const appConfig: ApplicationConfig = {
@@ -25,6 +33,9 @@ export const appConfig: ApplicationConfig = {
             }
 
     }
+  ),
+  importProvidersFrom(
+    OktaAuthModule.forRoot({ oktaAuth })
   )
   ]
 };

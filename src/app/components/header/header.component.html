@@ -29,7 +29,7 @@
                 <p class="text-sm"><i class="pi pi-phone mr-1"></i>+254 000 000 21</p>
                 <p class="text-sm"><i class="pi pi-whatsapp mr-1"></i>+254 000 000 21</p>
             </div>
-            <div class="h-full flex gap-4 items-center">
+            <div class="h-full p-2 flex gap-4 items-center">
                 <app-cart-status></app-cart-status>
                 <i class="pi pi-user text-xl cursor-pointer"></i>
                 <p-button (onClick)="toggleDarkMode()">
@@ -39,7 +39,17 @@
                     @else {
                         <i [class]="'pi pi-moon cursor-pointer'"></i>
                     }
-                </p-button>          
+                </p-button>       
+                @if (name$ | async; as name) {
+                    <div>
+                        <p-button (onClick)="signOut()">Logout</p-button>
+                        <small class="sub-text text-[14px]">Welcome back, {{ name }}</small>
+                    </div>   
+                }
+
+                @if (!isAuthenticated) {
+                    <p-button (onClick)="login()">Login</p-button>   
+                }
             </div>
        </div>
      </div>
