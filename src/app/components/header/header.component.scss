@@ -10,3 +10,11 @@
     ::ng-deep .custom-menu .p-menuitem-link {
       padding: 12px 16px !important; /* Increase padding for more space */
     }
+
+
+    nav {
+
+      li {
+        cursor: pointer;
+      }
+    }

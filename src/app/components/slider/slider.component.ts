@@ -5,11 +5,13 @@ import { RouterModule } from '@angular/router';
 import { CarouselModule } from 'primeng/carousel';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { AnimateOnScroll } from 'primeng/animateonscroll';
+
 
 
 @Component({
   selector: 'app-slider',
-  imports: [RouterModule, CarouselModule, CommonModule, ButtonModule],
+  imports: [RouterModule, CarouselModule, CommonModule, ButtonModule, AnimateOnScroll],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.scss'
 })

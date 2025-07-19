@@ -20,7 +20,7 @@
         </div>
     </div> -->
     <!-- small screen header -->
-    <div class="w-full h-[44px] bg-[#f8f8fb] flex items-center justify-center lg:py-[10px]">
+    <div class="w-full h-[44px] lg:h-[55px] bg-[#f8f8fb] flex items-center justify-center lg:py-[10px]">
        <div class="text-[#777777] w-full flex items-center justify-between px-2 lg:px-[100px]">
             <div class="md:hidden h-full flex items-center justify-center">
                 <i class="pi pi-bars cursor-pointer" (click)="toggleSidebar()" ></i>
@@ -30,7 +30,11 @@
                 <p class="text-sm"><i class="pi pi-whatsapp mr-1"></i>+254 000 000 21</p>
             </div>
             <div class="h-full p-2 flex gap-4 items-center">
-                <app-cart-status></app-cart-status>
+                  @if (name$ | async; as name) {
+                    <div>
+                        <small class="sub-text text-[14px]">Welcome back, {{ name }}</small>
+                    </div>   
+                }
                 <i class="pi pi-user text-xl cursor-pointer"></i>
                 <p-button (onClick)="toggleDarkMode()">
                     @if(!darkMode) {
@@ -40,16 +44,17 @@
                         <i [class]="'pi pi-moon cursor-pointer'"></i>
                     }
                 </p-button>       
-                @if (name$ | async; as name) {
-                    <div>
-                        <p-button (onClick)="signOut()">Logout</p-button>
-                        <small class="sub-text text-[14px]">Welcome back, {{ name }}</small>
-                    </div>   
-                }
+                    @if (name$ | async; as name) {
+                        <div>
+                            <p-button (onClick)="signOut()">Logout</p-button>
+                        </div>   
+                    }
 
-                @if (!isAuthenticated) {
-                    <p-button (onClick)="login()">Login</p-button>   
-                }
+                    @if (!isAuthenticated) {
+                        <div>
+                            <p-button (onClick)="login()">Login</p-button>   
+                        </div>
+                    }
             </div>
        </div>
      </div>
@@ -63,10 +68,33 @@
                 <i class="pi pi-search mx-2 cursor-pointer" (click)="search(input.value)"></i>
             </div>
         </div>
+        <div class="hidden lg:flex items-center text-2xl gap-5 justify-center">
+            <i class="pi pi-user text-xl cursor-pointer"></i>
+            <i class="pi pi-heart text-xl cursor-pointer"></i>
+            <app-cart-status></app-cart-status>
+        </div>
+     </div>
+
+     <div class="w-full hidden lg:flex justify-between items-center lg:px-[100px] border-t-1 border-b-1 p-2 border-color">
+        <p-button class="flex items-center gap-1 h-[44px]"> <i class="pi pi-th-large"></i>All Categories</p-button>
+        <div>
+            <nav>
+                <ul class="flex main-text gap-4 tems-center justify-center">
+                    <li>Home</li>
+                    <li>Categories</li>
+                    <li>Products</li>
+                    <li>Blog</li>
+                    <li>Offers</li>
+                </ul>
+            </nav>
+        </div>
+        <div>
+            <p-button class="flex items-center gap-1 h-[44px]"> <i class="pi pi-map-marker"></i>Nairobi</p-button>
+        </div>
      </div>
 
     <!-- side bar -->
-     <p-drawer header="Grabbit" [(visible)]="sidebarOpened" position="left">
+    <p-drawer header="Grabbit" [(visible)]="sidebarOpened" position="left">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, modi iusto! Minima fugit odio asperiores tenetur ipsa culpa laboriosam perspiciatis sequi aperiam doloremque.</p>
-     </p-drawer>
+    </p-drawer>
 </div>

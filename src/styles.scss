@@ -13,6 +13,10 @@
     --border-color: #eee;
 }
 
+.border-color {
+    color: var(--border-color);
+}
+
 .main-color {
     color: var(--main-text-color);
 }
