@@ -51,8 +51,9 @@
                     }
 
                     @if (!isAuthenticated) {
-                        <div>
+                        <div class="flex gap-2">
                             <p-button (onClick)="login()">Login</p-button>   
+                            <p-button routerLink="/members">Member</p-button>
                         </div>
                     }
             </div>
