@@ -15,10 +15,12 @@ import {
 } from "@okta/okta-angular";
 import { LoginComponent } from './components/login/login.component';
 import { MembersPageComponent } from './components/members-page/members-page.component';
+import OktaAuth from '@okta/okta-auth-js';
+import { HomePageComponent } from './components/home-page/home-page.component';
 
 
 export const oktaConfig = Object.assign({
-    onAuthRequired: (injector: any) => {
+    onAuthRequired: (oktaAuth: OktaAuth, injector: any) => {
         const router = injector.get(Router)
 
         router.navigate(['/login'])
@@ -42,6 +44,9 @@ export const routes: Routes = [
         path:'search/:keyword', component: ProductListComponent
     },
     {
+        path:'home', component: HomePageComponent
+    },
+    {
         path: 'products/:id', component: DetailComponent
     },
     {
@@ -54,7 +59,7 @@ export const routes: Routes = [
         path: 'products', component: ProductListComponent
     },
     {
-        path: '', redirectTo:'/products', pathMatch: 'full'
+        path: '', redirectTo:'/home', pathMatch: 'full'
     },
     {
         path:'**',redirectTo:'/products', pathMatch: 'full'
