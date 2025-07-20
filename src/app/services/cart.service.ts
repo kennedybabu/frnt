@@ -11,9 +11,22 @@ export class CartService {
   totalPrice: Subject<number> =  new BehaviorSubject<number>(0);
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
   items: Subject<CartItem []> = new Subject<CartItem[]>();
+  storge: Storage = sessionStorage;
 
 
-  constructor() { }
+  constructor() { 
+    let data = this.storge.getItem('cartItems')
+
+    if(data != null) {
+      this.cartItems = JSON.parse(data);
+
+      this.computeCartTotal();
+    }
+  }
+
+  persistCartItems() {
+    this.storge.setItem('cartItems', JSON.stringify(this.cartItems))
+  }
 
   addToCart(theCartItem: CartItem) {
     let alreadyExistsInCart: boolean = false;
@@ -56,8 +69,8 @@ export class CartService {
     this.totalPrice.next(totalPriceValue)
     this.totalQuantity.next(quantityValue)
     this.items.next(this.cartItems)
+    this.persistCartItems();
 
-    console.log(totalPriceValue, quantityValue, this.cartItems)
   }
 
   decrementQuantity(item: CartItem) {
