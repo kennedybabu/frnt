@@ -4,6 +4,7 @@ import { OktaAuthStateService, OKTA_AUTH } from "@okta/okta-angular"
 import OktaSignIn from '@okta/okta-signin-widget';
 import { OktaAuth, AuthState } from '@okta/okta-auth-js';
 import { Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 
 @Component({
@@ -18,6 +19,8 @@ export class LoginComponent implements OnInit{
   oktaAuthService = inject(OktaAuthStateService)
   okatAuth = inject(OKTA_AUTH)
   router = inject(Router)
+  storage: Storage = sessionStorage;
+  userEmail!: string | ''
 
   constructor() {
     this.oktaSignin = new OktaSignIn({
@@ -55,9 +58,12 @@ export class LoginComponent implements OnInit{
     const authState = await this.okatAuth.authStateManager.getAuthState();
 
     if(authState && authState.isAuthenticated) {
+
       this.router.navigate(['/products'])
       return
     }
   }
+
+
 
 }

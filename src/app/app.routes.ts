@@ -17,6 +17,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import OktaAuth from '@okta/okta-auth-js';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 
 export const oktaConfig = Object.assign({
@@ -28,6 +29,9 @@ export const oktaConfig = Object.assign({
 }, myAppConfig.oidc) 
 
 export const routes: Routes = [
+    {
+        path:'user-profile', component: UserProfileComponent, canActivate: [OktaAuthGuard]
+    },
     {
         path:'members', component: MembersPageComponent, canActivate: [OktaAuthGuard]
     },

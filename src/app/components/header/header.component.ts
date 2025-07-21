@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
   sidebarOpened: boolean = false
   isAuthenticated!: boolean
   userFullName!: string
+  storage: Storage = sessionStorage;
 
 
 
@@ -68,8 +69,16 @@ export class HeaderComponent implements OnInit {
 
   public name$ = this.oktaAuthService.authState$.pipe(
     filter((authState: AuthState) => !!authState && !! authState.isAuthenticated),
-    map((authState: AuthState) => authState.idToken?.claims.name ?? '')
+    map((authState: AuthState) => {
+      authState.idToken?.claims.name ?? '';
+      let userEmail = authState.idToken?.claims.email
+      this.storage.setItem("email", JSON.stringify(userEmail))
+    })
   )
+
+  viewProfile() {
+    this.router.navigateByUrl("/user-profile")
+  }
 
   public async signIn(): Promise<void> {
     await this.oktaAuth.signInWithRedirect();

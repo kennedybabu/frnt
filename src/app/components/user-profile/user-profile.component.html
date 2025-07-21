@@ -1,0 +1,17 @@
+<div class="w-full p-2">
+    <h2 class="font-bold">{{ userEmail }}</h2>
+
+    @for (order of orderHistoryList; track $index) {
+        <div>
+           <small>{{ order.orderTrackingNumber }}</small>
+            <small>{{ order.totalQuantity }}</small>
+           <small>{{ order.dateCreated }}</small>
+        </div>
+    }
+
+    @if (orderHistoryList.length === 0) {
+        <div class="alert alert-warning">
+            <small>You have no orders</small>
+        </div>
+    }
+</div>
