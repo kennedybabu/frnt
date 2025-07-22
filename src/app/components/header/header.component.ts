@@ -70,13 +70,14 @@ export class HeaderComponent implements OnInit {
   public name$ = this.oktaAuthService.authState$.pipe(
     filter((authState: AuthState) => !!authState && !! authState.isAuthenticated),
     map((authState: AuthState) => {
-      authState.idToken?.claims.name ?? '';
+      this.userFullName = authState.idToken?.claims.name ?? '';
       let userEmail = authState.idToken?.claims.email
       this.storage.setItem("email", JSON.stringify(userEmail))
     })
   )
 
   viewProfile() {
+    console.log('clicked i')
     this.router.navigateByUrl("/user-profile")
   }
 

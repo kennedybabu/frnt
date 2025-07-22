@@ -30,12 +30,12 @@
                 <p class="text-sm"><i class="pi pi-whatsapp mr-1"></i>+254 000 000 21</p>
             </div>
             <div class="h-full p-2 flex gap-4 items-center">
-                  @if (name$ | async; as name) {
+                  @if (isAuthenticated) {
                     <div>
-                        <small class="sub-text text-[14px]">Welcome back, {{ name }}</small>
+                        <small class="sub-text text-[14px]">Welcome back, {{ userFullName }}</small>
                     </div>   
                 }
-                <i class="pi pi-user text-xl cursor-pointer"></i>
+                <i (click)="viewProfile()" class="pi pi-user text-xl cursor-pointer"></i>
                 <p-button (onClick)="toggleDarkMode()">
                     @if(!darkMode) {
                         <i [class]="'pi pi-sun cursor-pointer'"></i>
@@ -44,8 +44,8 @@
                         <i [class]="'pi pi-moon cursor-pointer'"></i>
                     }
                 </p-button>       
-                    @if (name$ | async; as name) {
-                        <div class="flex gap-3">
+                    @if (isAuthenticated) {
+                        <div class="hidden md:flex flex gap-3">
                             <p-button (onClick)="signOut()">Logout</p-button>
                             <p-button routerLink="/members">Member</p-button>
                         </div>   
@@ -70,8 +70,10 @@
             </div>
         </div>
         <div class="hidden lg:flex items-center text-2xl gap-5 justify-center">
-            <i class="pi pi-user text-2xl cursor-pointer"></i>
-            <p-button (onClick)="viewProfile()">profile</p-button>
+            <i (click)="viewProfile()" class="pi pi-user text-2xl cursor-pointer"></i>
+            <p-button (onClick)="viewProfile()">
+                
+            </p-button>
             <i class="pi pi-heart text-xl cursor-pointer"></i>
             <app-cart-status></app-cart-status>
         </div>

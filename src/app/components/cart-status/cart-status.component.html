@@ -6,24 +6,24 @@
     <!-- <i class="pi pi-user text-xl cursor-pointer"></i> -->
     <p-drawer header="Cart" [(visible)]="visible" position="right">
       @for (item of cartItems; track $index) {
-        <div class="w-full border flex my-2 border-gray-200 h-[150px]">
+        <div class="w-full border flex my-2 border-color h-[150px]">
             <div class="h-[60%]">
                 <img src="{{ item.imageUrl }}" alt="">
             </div>
             <div class="p-2">
-                <h5 class="font-bold">{{ item.name }}</h5>
-                <p class="font-bold">{{ item.unitPrice }}</p>
+                <h5 class="main-text">{{ item.name }}</h5>
+                <p class="main-text">{{ item.unitPrice }}</p>
                 
                 <div class="w-full flex items-center justify-between">
-                  <div (click)="incrementQuantity(item)" class="w-[30px] h-[30px] cursor-pointer flex items-center justify-center rounded-sm bg-[#cc3333]">
+                  <div (click)="incrementQuantity(item)" class="w-[32px] h-[35px] cursor-pointer flex items-center justify-center border border-color">
                     <i class="pi pi-plus"></i>
                   </div>
 
-                  <div class="w-[35px] flex items-center justify-center">
+                  <div class="w-[32px] h-[35px] flex items-center justify-center">
                       <span class="font-bold">{{ item.quantity }}</span>
                   </div>
 
-                  <div (click)="decrementQuantity(item)" class="w-[30px] h-[30px] cursor-pointer flex items-center justify-center rounded-sm bg-[#cc3333]">
+                  <div (click)="decrementQuantity(item)" class="w-[32px] h-[35px] cursor-pointer flex items-center justify-center border border-color">
                     <i class="pi pi-minus"></i>
                   </div>
                 </div>

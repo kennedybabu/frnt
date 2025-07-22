@@ -1,7 +1,37 @@
-<div class="w-full p-2">
-    <h2 class="font-bold">{{ userEmail }}</h2>
+<div class="w-full p-2 py-5 min-h-[80vh] lg:px-[100px]">
+    <div class="w-full flex flex-col md:flex-row">
+        <div class="w-full md:w-32 flex-1 p-2">
+            <div class="w-[220px] h-[220px] mb-3 bg-gray-200">
 
-    @for (order of orderHistoryList; track $index) {
+
+            </div>
+            <h2 class="main-text mb-1">Kennedy Njogu</h2>
+            <p class="sub-text text-sm">Email: {{ userEmail}}</p>
+        </div>
+        <div class="flex-3 p-2">
+            <p-table [value]="orderHistoryList" stripedRows [tableStyle]="{'min-width': '50rem'}">
+                <ng-template #header>
+                    <tr>
+                        <th>Tracking No.</th>
+                        <th>Total Quantity</th>
+                        <th>Date Created</th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-product>
+                    <tr>
+                        <td>{{ product.orderTrackingNumber }}</td>
+                        <td>{{ product.totalQuantity }}</td>
+                        <td>{{ product.dateCreated }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            @if (orderHistoryList.length === 0) {
+                <div class="p-2 alert alert-warn">You havent made any orders yet!!!</div>
+            }
+        </div>
+    </div>
+
+    <!-- @for (order of orderHistoryList; track $index) {
         <div>
            <small>{{ order.orderTrackingNumber }}</small>
             <small>{{ order.totalQuantity }}</small>
@@ -13,5 +43,5 @@
         <div class="alert alert-warning">
             <small>You have no orders</small>
         </div>
-    }
+    } -->
 </div>
