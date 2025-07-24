@@ -2,11 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { OrderHistory } from '../../common/order-history';
 import { OrderHistoryService } from '../../services/order-history.service';
 import { TableModule } from 'primeng/table';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-user-profile',
-  imports: [TableModule],
+  imports: [TableModule, DatePipe],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })

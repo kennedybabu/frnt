@@ -318,6 +318,8 @@ value1: Date | undefined;
         error: err => {
           alert(`There was an error: ${err.message}`)
          console.log(err)
+                   this.resetCart()
+
         }
       }
     )

@@ -21,7 +21,7 @@
                     <tr>
                         <td>{{ product.orderTrackingNumber }}</td>
                         <td>{{ product.totalQuantity }}</td>
-                        <td>{{ product.dateCreated }}</td>
+                        <td>{{ product.dateCreated | date }}</td>
                     </tr>
                 </ng-template>
             </p-table>

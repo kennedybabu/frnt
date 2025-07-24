@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
 
 
   navigate() {
-    this.router.navigateByUrl("/products")
+    this.router.navigateByUrl("/")
   }
 
   login() {

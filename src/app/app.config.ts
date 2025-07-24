@@ -4,9 +4,10 @@ import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import { oktaConfig, routes } from './app.routes';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common/http';
 import Lara from '@primeng/themes/lara';
 import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 
 const oktaAuth = new OktaAuth({
@@ -19,6 +20,7 @@ const oktaAuth = new OktaAuth({
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    {provide:HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes), 
     provideHttpClient(withFetch()),
