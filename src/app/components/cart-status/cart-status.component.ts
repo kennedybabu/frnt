@@ -61,6 +61,7 @@ incrementQuantity(item: CartItem) {
   }
 
   checkout() {
+    this.visible = false
     this.router.navigateByUrl("/checkout")
   }
 }

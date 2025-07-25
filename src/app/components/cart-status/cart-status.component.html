@@ -6,7 +6,7 @@
     <!-- <i class="pi pi-user text-xl cursor-pointer"></i> -->
     <p-drawer header="Cart" [(visible)]="visible" position="right">
       @for (item of cartItems; track $index) {
-        <div class="w-full border flex my-2 border-color h-[150px]">
+        <div class="w-full border flex my-2 border-color">
             <div class="h-[60%]">
                 <img src="{{ item.imageUrl }}" alt="">
             </div>
@@ -27,14 +27,17 @@
                     <i class="pi pi-minus"></i>
                   </div>
                 </div>
-                <button (click)="removeItem(item)" class="bg-[#cc3333] my-2 py-2 px-6">Remove</button>
+                <button (click)="removeItem(item)" class="bg-[#cc3333] my-2 py-2 px-4">Remove</button>
             </div>
         </div>
       }   
+
+      @if (cartItems.length === 0) {
+        <div class="w-full alert alert-warn flex items-center">
+          <span class="main-text text-sm">Your Cart is Empty</span>
+        </div>
+      }
       
-      <div *ngIf="cartItems.length < 1" class="w-full alert alert-warn">
-          Your Cart is Empty
-      </div>
 
       <hr>
 

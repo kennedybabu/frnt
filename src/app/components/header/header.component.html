@@ -30,13 +30,14 @@
                 <p class="text-sm"><i class="pi pi-whatsapp mr-1"></i>+254 000 000 21</p>
             </div>
             <div class="h-full p-2 flex gap-4 items-center">
-                  @if (isAuthenticated) {
+                @if (isAuthenticated) {
                     <div>
                         <small class="sub-text text-[14px]">Welcome back, {{ userFullName }}</small>
                     </div>   
                 }
-                <i (click)="viewProfile()" class="pi pi-user text-xl cursor-pointer"></i>
-                <p-button (onClick)="toggleDarkMode()">
+
+                <app-cart-status class="md:hidden"></app-cart-status>
+                <p-button class="hidden md:flex" (onClick)="toggleDarkMode()">
                     @if(!darkMode) {
                         <i [class]="'pi pi-sun cursor-pointer'"></i>
                     }
@@ -44,18 +45,18 @@
                         <i [class]="'pi pi-moon cursor-pointer'"></i>
                     }
                 </p-button>       
-                    @if (isAuthenticated) {
-                        <div class="hidden md:flex flex gap-3">
-                            <p-button (onClick)="signOut()">Logout</p-button>
-                            <p-button routerLink="/members">Member</p-button>
-                        </div>   
-                    }
+                @if (isAuthenticated) {
+                    <div class="hidden md:flex flex gap-3">
+                        <p-button (onClick)="signOut()">Logout</p-button>
+                        <p-button routerLink="/members">Member</p-button>
+                    </div>   
+                }
 
-                    @if (!isAuthenticated) {
-                        <div class="flex gap-2">
-                            <p-button (onClick)="login()">Login</p-button>   
-                        </div>
-                    }
+                @if (!isAuthenticated) {
+                    <div class="hidden md:flex gap-2">
+                        <p-button (onClick)="login()">Login</p-button>   
+                    </div>
+                }
             </div>
        </div>
      </div>
@@ -96,6 +97,22 @@
 
     <!-- side bar -->
     <p-drawer header="Grabbit" [(visible)]="sidebarOpened" position="left">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, modi iusto! Minima fugit odio asperiores tenetur ipsa culpa laboriosam perspiciatis sequi aperiam doloremque.</p>
+        <div class="w-full flex h-full justify-between flex-col">
+            <nav>
+                <ul>
+                    <li class="mb-4">Home</li>
+                    <li class="mb-4">Products</li>
+                    <li class="mb-4">Profile</li>
+                </ul>
+            </nav>
+            <div class="w-full flex flex-col gap-2 flex-end">
+                @if (isAuthenticated) {
+                    <button (onClick)="signOut()" class="cursor-pointer p-2 bg-red-300 w-full rounded-sm hover:shadow-sm transition">Logout</button> 
+                }
+                @else {
+                    <button (onClick)="login()" class="cursor-pointer p-2 bg-blue-300 w-full rounded-sm hover:shadow-sm transition">Login</button> 
+                }
+            </div>
+        </div>
     </p-drawer>
 </div>
