@@ -3,14 +3,15 @@ import { inject, Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import { Country } from '../common/country';
 import { State } from '../common/state';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopFormService {
 
-  private countriesUrl = "http://localhost:8080/api/countries"
-  private statesUrl = "https://localhost:8080/api/states"
+  private countriesUrl = environment.grabbitUrl + "/countries"
+  private statesUrl = environment.grabbitUrl + "/states"
 
   httpClient = inject(HttpClient)
 

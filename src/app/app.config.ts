@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common
 import Lara from '@primeng/themes/lara';
 import { OktaAuthModule } from '@okta/okta-angular';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { LoaderInterceptorService } from './interceptors/loader-interceptor.service';
 
 
 const oktaAuth = new OktaAuth({
@@ -21,6 +22,7 @@ const oktaAuth = new OktaAuth({
 export const appConfig: ApplicationConfig = {
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true},
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes), 
     provideHttpClient(withFetch()),

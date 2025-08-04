@@ -2,6 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { inject, Injectable } from '@angular/core';
 import OktaAuth from '@okta/okta-auth-js';
 import { from, Observable, switchMap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class AuthInterceptorService implements HttpInterceptor {
   }
 
   private async addTokenIfNeeded(request: HttpRequest<any>): Promise<HttpRequest<any>> {
-    const secureEndpoints = ["http://localhost:8080/api/orders"];
+    const theEndpoint = environment.grabbitUrl + "/orders"
+    const secureEndpoints = [theEndpoint];
 
     if (secureEndpoints.some(url => request.urlWithParams.includes(url))) {
       // Get access token

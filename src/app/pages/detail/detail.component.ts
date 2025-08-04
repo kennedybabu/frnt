@@ -41,6 +41,7 @@ addToCart(product: Product) {
     this.productService.getProduct(id).subscribe(
       data => {
         this.product = data;
+        console.log(data)
       }
     )
   }

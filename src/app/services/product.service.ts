@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Product } from '../common/product';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ import { Product } from '../common/product';
 export class ProductService {
 
 
-  private baseUrl = "http://localhost:8080/api/products"
-  private categoryUrl = "http://localhost:8080/api/product-category"
+  private baseUrl = environment.grabbitUrl + "/products"
+  private categoryUrl = environment.grabbitUrl + "/product-category"
 
   httpClient = inject(HttpClient)
 
@@ -46,7 +47,7 @@ export class ProductService {
   }
 
   getProduct(productId: number): Observable<Product> {
-    const productUrl = `${this.baseUrl}/${productId};`
+    const productUrl = `${this.baseUrl}/${productId}`
 
     return this.httpClient.get<Product>(productUrl);
   }
